@@ -31,7 +31,17 @@ public class Uhrzeit {
 
     @Override
     public String toString() {
-        return stunde  + ":" + minute + " Uhr";
+        String s = new String();
+        if(stunde < 10) {
+            s = "0";
+        }
+        s += stunde + ":";
+
+        if(minute < 10) {
+            s += "0";
+        }
+        s += minute + " Uhr";
+        return s;
     }
 
     @Override

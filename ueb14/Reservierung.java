@@ -20,8 +20,16 @@ public class Reservierung  {
         this.mitarbeiter = mitarbeiter;
     }
 
+    public Mitarbeiter getMitarbeiter() {
+        return mitarbeiter;
+    }
+
     public void setRaum(Raum raum) {
         this.raum = raum;
+    }
+
+    public Raum getRaum() {
+        return raum;
     }
 
     public String getBemerkung() {

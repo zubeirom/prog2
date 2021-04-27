@@ -8,13 +8,13 @@ public class Raum {
     private int raum;
 
     private List<Reservierung> reservierungen = new ArrayList<Reservierung>();
-    
+
     public Raum(int geb, int etage, int raum) {
         this.geb = geb;
         this.etage = etage;
         this.raum = raum;
     }
-    
+
     public int getGeb() {
         return geb;
     }
@@ -23,16 +23,16 @@ public class Raum {
         return etage;
     }
 
-
     public int getRaum() {
         return raum;
     }
 
     public void addReservierung(Reservierung reservierung) throws Exception {
-        if(isAvailable(reservierung)) {
+        if (isAvailable(reservierung)) {
             reservierungen.add(reservierung);
         } else {
-            throw new Exception("Raum nicht verfügbar zum angegebenen Zeitpunkt");
+            throw new Exception("Raum " + reservierung.getRaum().getRaumOnly() + " ist nicht verfügbar zum Zeitpunkt " + reservierung.getBeginn().toString() + " bis "
+                    + reservierung.getEnde().toString());
         }
     }
 
@@ -44,11 +44,11 @@ public class Raum {
             int b = res.getBeginn().getConcatinated();
             int e = res.getEnde().getConcatinated();
 
-            if(endeCon < e && endeCon >= b) {
+            if (endeCon < e && endeCon >= b) {
                 return false;
             }
 
-            if(beginnCon > b && beginnCon <= e) {
+            if (beginnCon > b && beginnCon <= e) {
                 return false;
             }
         }
@@ -63,10 +63,20 @@ public class Raum {
         return reservierungen.size();
     }
 
+    public String getRaumOnly() {
+        return geb + "-" + etage + "." + raum;
+    }
 
     @Override
     public String toString() {
-        return geb + "-" + etage + "." + raum;
+        String s = new String();
+        s = getRaumOnly() + "\n";
+        for (Reservierung reservierung : reservierungen) {
+            s += "gebucht von " + reservierung.getMitarbeiter().toString() + " von "
+                    + reservierung.getBeginn().toString() + " bis " + reservierung.getEnde().toString() + " für "
+                    + reservierung.getBemerkung() + "\n";
+        }
+        return s;
     }
 
     @Override
@@ -86,5 +96,5 @@ public class Raum {
             return false;
         return true;
     }
-    
+
 }

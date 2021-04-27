@@ -19,7 +19,8 @@ public class Mitarbeiter extends Person {
         Reservierung reservierung= new Reservierung(beginn, ende);
         reservierung.setBemerkung(bemerkung);
         reservierung.setRaum(raum);
-        
+        reservierung.setMitarbeiter(this);
+
         raum.addReservierung(reservierung);
     }
 
