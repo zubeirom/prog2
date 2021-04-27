@@ -25,11 +25,36 @@ public class Dialog {
 
     private int einleseFunktion() {
         System.out.println("--------- System ---------");
-        System.out.print(MITARBEITEREINSTELLEN + ": Mitarbeiter einstellen; \n" + RAUMBAUEN
+        System.out.print(MITARBEITEREINSTELLEN + ": Mitarbeiter anstellen; \n" + RAUMBAUEN
                 + ": Neuen raum erstellen; \n" + RAUMRESERVIEREN + ": Raum reservieren; \n" + MITARBEITERLISTE
                 + ": Liste der Mitarbeiter; \n" + RAUMLISTE + ": Liste der Mitarbeiter; \n" + RESERVIERUNGENFUERRAUM
                 + ": Reservierung für einen Raum; \n" + ENDE + ": beenden -> ");
         return input.nextInt();
+    }
+
+    /**
+     * Methode zum erstellen eines mitarbeiter
+     * 
+     * @return Mitarbeiter
+     */
+    public Mitarbeiter mitarbeiterErstellen() {
+        System.out.println("--------- Neuer Mitarbeiter ---------");
+        System.out.print("Vorname: ");
+        input.nextLine();
+        String vorname = input.nextLine();
+        System.out.print("Nachname: ");
+        String nachname = input.nextLine();
+        System.out.print("Email: ");
+        String email = input.nextLine();
+
+        return new Mitarbeiter(vorname, nachname, email);
+    }
+
+    public void printMitarbeiter() {
+        System.out.println("--------- List der Mitarbeiter ---------");
+        for (int i = 0; i < mitarbeiterListe.size(); i++) {
+            System.out.println(i + ": " +  mitarbeiterListe.get(i));
+        }
     }
 
     /**
@@ -39,6 +64,12 @@ public class Dialog {
      */
     private void ausfuehrenFunktion(int funktion) {
         switch (funktion) {
+        case MITARBEITEREINSTELLEN:
+            mitarbeiterListe.add(mitarbeiterErstellen());
+            break;
+        case MITARBEITERLISTE:
+            printMitarbeiter();
+            break;
         case ENDE:
             System.out.println("Programmende");
             break;
@@ -57,11 +88,11 @@ public class Dialog {
         while (funktion != ENDE) {
             try {
                 funktion = einleseFunktion();
+                System.out.println();
                 ausfuehrenFunktion(funktion);
+                System.out.println();
             } catch (IllegalArgumentException e) {
                 System.out.println(e);
-            } catch (NullPointerException e) {
-                System.out.println("Lager oder Artikel exestiert nicht! Bitte erstellen sie diese zuerst.");
             } catch (InputMismatchException e) {
                 System.out.println(e + " Falsche Eingabe!");
                 input.nextLine();
@@ -79,23 +110,6 @@ public class Dialog {
      */
 
     public static void main(String[] args) throws Exception {
-        Mitarbeiter m1 = new Mitarbeiter("Max", "Mustermann", "max@htwsaar.de");
-        Mitarbeiter m2 = new Mitarbeiter("John", "Doe", "john@htwsaar.de");
-        Raum r1 = new Raum(18,0,1);
-        Raum r2 = new Raum(2,1,9);
-        Raum r3 = new Raum(2,1,10);
-        m1.reserviere(r1, new Uhrzeit(12, 30), new Uhrzeit(14, 30), "VOOP");
-        m1.reserviere(r2, new Uhrzeit(14, 30), new Uhrzeit(16, 30), "WebTech");
-        m2.reserviere(r2, new Uhrzeit(12, 30), new Uhrzeit(13, 15), "Prog II");
-        m2.reserviere(r2, new Uhrzeit(9, 0), new Uhrzeit(11, 45), "Prog III");
-        m2.reserviere(r2, new Uhrzeit(9, 15), new Uhrzeit(11, 45), "Prog III");
-
-        m2.reserviere(r3, new Uhrzeit(9, 3), new Uhrzeit(11,30), "ITM");
-
-        System.out.println(r1);
-        System.out.println(r2);
-        System.out.println(r3);
-
-        // new Dialog().start();
+        new Dialog().start();
     }
 }
