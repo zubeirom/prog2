@@ -46,7 +46,7 @@ public class Dialog {
         String nachname = input.nextLine();
         System.out.print("Email: ");
         String email = input.nextLine();
-        if(emailExists(email)) {
+        if (emailExists(email)) {
             System.out.println("cdsc");
             throw new IllegalArgumentException("Mitarbeiter exestiert schon");
         }
@@ -55,7 +55,7 @@ public class Dialog {
 
     public boolean emailExists(String email) {
         for (Mitarbeiter mitarbeiter : mitarbeiterListe) {
-            if(mitarbeiter.getEmail().equals(email)) {
+            if (mitarbeiter.getEmail().equals(email)) {
                 return true;
             }
         }
@@ -68,7 +68,7 @@ public class Dialog {
     public void printMitarbeiter() {
         System.out.println("--------- List der Mitarbeiter ---------");
         for (int i = 0; i < mitarbeiterListe.size(); i++) {
-            System.out.println(i + ": " +  mitarbeiterListe.get(i));
+            System.out.println(i + ": " + mitarbeiterListe.get(i));
         }
     }
 
@@ -98,16 +98,102 @@ public class Dialog {
     public void printRaeume() {
         System.out.println("--------- List der Räume ---------");
         for (int i = 0; i < raumListe.size(); i++) {
-            System.out.println(i + ": " +  raumListe.get(i).getRaumOnly());
+            System.out.println(i + ": " + raumListe.get(i).getRaumOnly());
         }
     }
 
     /**
+     * User eingabe methode zum reservieren von Raum
+     */
+
+    public void setupReservieren() throws Exception {
+        if(mitarbeiterListe.size() == 0) {
+            System.out.println("Du hast keine Mitarbeiter");
+            return;
+        }
+
+        if(raumListe.size() == 0) {
+            System.out.println("Du hast keinen Raum");
+            return;
+        }
+
+
+        System.out.println("Wähle den Mitarbeiter");
+        printMitarbeiter();
+        System.out.print("Mitarbeiter: ");
+        int index2 = input.nextInt();
+        if(index2 >= mitarbeiterListe.size() || index2 < 0) {
+            System.out.println("Mitarbeiter exestiert nicht");
+            return;
+        }
+        Mitarbeiter mitarbeiter = mitarbeiterListe.get(index2);
+        System.out.println();
+
+
+        System.out.println("Wähle den Raum");
+        printRaeume();
+        System.out.print("Raum: ");
+        int index = input.nextInt();
+        if(index >= raumListe.size() || index < 0) {
+            System.out.println("Raum exestiert nicht");
+            return;
+        }
+        Raum raum = raumListe.get(index);
+        System.out.println();
+
+        System.out.println("Wann beginnt deine reservierung? (Beispieleingabe => 12:45): ");
+        input.nextLine();
+        String stringBeginn = input.nextLine();
+        Uhrzeit beginn = convertToUhrzeit(stringBeginn);
+        System.out.println();
+
+
+        System.out.print("Wann endet deine reservierung? (Beispieleingabe => 12:45): ");
+        String stringEnde = input.nextLine();
+        Uhrzeit ende = convertToUhrzeit(stringEnde);
+
+        System.out.print("Bemerkung: ");
+        String bemerkung = input.nextLine();
+        mitarbeiter.reserviere(raum, beginn, ende, bemerkung);
+    }
+
+    /**
+     * Konvertiert string von usereingabe zu Uhrzeit Objekt
+     * @param su
+     * @return Uhrzeit Objekt
+     */
+    public Uhrzeit convertToUhrzeit(String su) {
+        var strs = su.split(":");
+        return new Uhrzeit(Integer.parseInt(strs[0]), Integer.parseInt(strs[1]));
+    }
+
+    /**
+     * Gebe reservierung 
+     */
+    public void printReservierungbyRaum() {
+        if(raumListe.size() == 0) {
+            System.out.println("Du hast keinen Raum");
+            return;
+        }
+        System.out.println("Wähle den Raum");
+        printRaeume();
+        System.out.print("Raum: ");
+        int index = input.nextInt();
+        if(index >= raumListe.size() || index < 0) {
+            System.out.println("Raum exestiert nicht");
+            return;
+        }
+        System.out.println();
+        System.out.println(raumListe.get(index));
+    }
+  
+    /**
      * Hier wird abhängig vom benutzer die richtige artikel methode ausgeführt
      * 
      * @param funktion Befehl des benutzer
+     * @throws Exception
      */
-    private void ausfuehrenFunktion(int funktion) {
+    private void ausfuehrenFunktion(int funktion) throws Exception {
         switch (funktion) {
         case MITARBEITEREINSTELLEN:
             mitarbeiterListe.add(mitarbeiterErstellen());
@@ -120,6 +206,12 @@ public class Dialog {
             break;
         case RAUMLISTE:
             printRaeume();
+            break;
+        case RAUMRESERVIEREN:
+            setupReservieren();
+            break;
+        case RESERVIERUNGENFUERRAUM:
+            printReservierungbyRaum();
             break;
         case ENDE:
             System.out.println("Programmende");

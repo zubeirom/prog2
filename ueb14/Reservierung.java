@@ -1,4 +1,5 @@
-public class Reservierung  {
+
+public class Reservierung {
 
     private String bemerkung;
     private Uhrzeit beginn;
@@ -8,6 +9,11 @@ public class Reservierung  {
     private Raum raum;
 
     public Reservierung(Uhrzeit beginn, Uhrzeit ende) {
+        int bCon = beginn.getConcatinated();
+        int eCon = ende.getConcatinated();
+        if (eCon <= bCon) {
+            throw new IllegalArgumentException("Ende ist kleiner als Beginn");
+        }
         this.beginn = beginn;
         this.ende = ende;
     }
@@ -36,11 +42,9 @@ public class Reservierung  {
         return bemerkung;
     }
 
-
     public Uhrzeit getBeginn() {
         return beginn;
     }
-
 
     public Uhrzeit getEnde() {
         return ende;
