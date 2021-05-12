@@ -1,15 +1,30 @@
 package com.example;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.ChartUtils;
+import java.awt.image.BufferedImage;
 
 
 public abstract class Palindrom implements IPalindrom {
@@ -63,8 +78,8 @@ public abstract class Palindrom implements IPalindrom {
                 writer.write("Word length, Duration, IsPalindrom, AlgorithmType, Word\n");
             }
             for (Map<String, String> map : data) {
-                String s = map.get(WORD_LENGTH) + ", " + map.get(DURATION) + ", " + map.get(RESULT) + ", "
-                        + map.get(TYPE) + ", " + map.get(WORD) + "\n";
+                String s = map.get(WORD_LENGTH) + "," + map.get(DURATION) + "," + map.get(RESULT) + ","
+                        + map.get(TYPE) + "," + map.get(WORD) + "\n";
                 writer.write(s);
             }
             writer.close();
@@ -111,12 +126,56 @@ public abstract class Palindrom implements IPalindrom {
         };
     }
 
-    public void buildGraph() {
+    public void buildGraph() throws IOException {
         File file = new File(DATA_FILE);
         if(!file.isFile() || file.length() == 0){
             throw new NullPointerException("You have no data, please run initialize");
         }
 
+        NumberAxis xAxis = new NumberAxis("Wortlänge");
+        NumberAxis yAxis = new NumberAxis("Zeit in ns");
+
+        XYSplineRenderer renderer = new XYSplineRenderer();
+        XYDataset dataset = createDataset(file);
+
+        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
+        // Create chart
+        JFreeChart chart = new JFreeChart("Measure", JFreeChart.DEFAULT_TITLE_FONT, plot, true);
+        ChartUtils.applyCurrentTheme(chart);
+        ChartPanel chartPanel = new ChartPanel(chart, false);
+
+        OutputStream out = new FileOutputStream("Measure.png");
+
+        ChartUtils.writeChartAsPNG(out,
+                chart,
+                1024,
+                720);
+    }
+
+    private XYDataset createDataset(File f) throws IOException {
+        XYSeries recursiveData = new XYSeries("Recursive");
+        XYSeries iterativeData = new XYSeries("Iterative");
+        BufferedReader reader;
         
+        reader = new BufferedReader(new FileReader(f));
+        String line = reader.readLine();
+        while (line != null) {
+            String[] lineList = line.split(",");
+            if(lineList[3] == "recursive") {
+                System.out.println(lineList[0] + lineList[1]);
+                recursiveData.add(Double.parseDouble(lineList[0]), Double.parseDouble(lineList[1]));
+            }
+            if(lineList[3] == "iterative") {
+                System.out.println(lineList[0] + lineList[1]);
+                recursiveData.add(Double.parseDouble(lineList[0]), Double.parseDouble(lineList[1]));
+            }
+            line = reader.readLine();
+        }
+
+        reader.close();
+        XYSeriesCollection result = new XYSeriesCollection();
+        result.addSeries(recursiveData);
+        result.addSeries(iterativeData);
+        return result;
     }
 }
