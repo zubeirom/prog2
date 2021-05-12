@@ -7,8 +7,16 @@ public class PalindromIterativ extends Palindrom {
 
     @Override
     public boolean istPalindrom(String wort) {
-        // TODO Auto-generated method stub
-        return false;
+        int a = 0;
+        int b = wort.length() - 1;
+        while(a < b) {
+            if(wort.charAt(a) != wort.charAt(b)) {
+                return false;
+            }
+            a++;
+            b--;
+        }
+        return true;
     }
     
 }
