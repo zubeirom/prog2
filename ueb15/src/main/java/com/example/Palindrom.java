@@ -11,6 +11,7 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,6 +137,7 @@ public abstract class Palindrom implements IPalindrom {
         NumberAxis yAxis = new NumberAxis("Zeit in ns");
 
         XYSplineRenderer renderer = new XYSplineRenderer();
+        renderer.setDefaultLinesVisible(true);
         XYDataset dataset = createDataset(file);
 
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
@@ -161,13 +163,11 @@ public abstract class Palindrom implements IPalindrom {
         String line = reader.readLine();
         while (line != null) {
             String[] lineList = line.split(",");
-            if(lineList[3] == "recursive") {
-                System.out.println(lineList[0] + lineList[1]);
+            if(lineList[3].equals("recursive")) {
                 recursiveData.add(Double.parseDouble(lineList[0]), Double.parseDouble(lineList[1]));
             }
-            if(lineList[3] == "iterative") {
-                System.out.println(lineList[0] + lineList[1]);
-                recursiveData.add(Double.parseDouble(lineList[0]), Double.parseDouble(lineList[1]));
+            if(lineList[3].equals("iterative")) {
+                iterativeData.add(Double.parseDouble(lineList[0]), Double.parseDouble(lineList[1]));
             }
             line = reader.readLine();
         }

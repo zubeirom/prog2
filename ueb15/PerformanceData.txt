@@ -1,21 +1,21 @@
 Word length, Duration, IsPalindrom, AlgorithmType, Word
-4, 21700, true, recursive, Otto
-2, 22900, false, recursive, IO
-4, 23100, true, recursive, Paap
-4, 47300, false, recursive, Wail
-5, 12100, false, recursive, Nebil
-7, 32700, true, recursive, Rentner
-5, 12900, false, recursive, Hamza
-4, 5800, false, recursive, Mama
-4, 6100, false, recursive, Papa
-8, 10400, false, recursive, Nerv net
-4, 42800, true, iterative, Otto
-2, 13600, false, iterative, IO
-4, 9000, true, iterative, Paap
-4, 12900, false, iterative, Wail
-5, 3900, false, iterative, Nebil
-7, 9300, true, iterative, Rentner
-5, 11100, false, iterative, Hamza
-4, 4200, false, iterative, Mama
-4, 3800, false, iterative, Papa
-8, 4500, false, iterative, Nerv net
+4,41900,true,recursive,Otto
+2,19500,false,recursive,IO
+4,26600,true,recursive,Paap
+4,14500,false,recursive,Wail
+5,9900,false,recursive,Nebil
+7,12100,true,recursive,Rentner
+5,10600,false,recursive,Hamza
+4,8600,false,recursive,Mama
+4,8600,false,recursive,Papa
+8,12600,false,recursive,Nerv net
+4,38800,true,iterative,Otto
+2,12300,false,iterative,IO
+4,16800,true,iterative,Paap
+4,11700,false,iterative,Wail
+5,4600,false,iterative,Nebil
+7,4300,true,iterative,Rentner
+5,4800,false,iterative,Hamza
+4,2600,false,iterative,Mama
+4,2600,false,iterative,Papa
+8,10800,false,iterative,Nerv net
