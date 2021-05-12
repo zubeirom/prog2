@@ -1,3 +1,5 @@
+package com.example;
+
 public class PalindromRekursiv extends Palindrom {
 
     PalindromRekursiv() {

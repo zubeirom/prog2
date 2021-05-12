@@ -1,3 +1,5 @@
+package com.example;
+
 public class GgtRekursiv implements GgT {
 
     @Override
