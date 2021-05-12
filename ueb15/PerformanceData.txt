@@ -1,0 +1,2 @@
+true, 4, 36500, recursive, Otto
+false, 6, 30800, recursive, Zubeir
