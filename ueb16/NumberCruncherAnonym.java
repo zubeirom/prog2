@@ -1,7 +1,7 @@
 /**
  * Anonyme klasse 
  */
-public class NumberCruncherAnonym implements CrunchOperation {
+public class NumberCruncherAnonym extends NumberCrunch {
     private float[] values;
 
     public NumberCruncherAnonym(float[] values) {

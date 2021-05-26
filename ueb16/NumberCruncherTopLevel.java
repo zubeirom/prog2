@@ -1,8 +1,8 @@
 
 /**
- *  Top level klasse implementiert Crunchoperation
+ *  Top level class implements Crunchoperation
  */
-public class NumberCruncherTopLevel implements CrunchOperation {
+public class NumberCruncherTopLevel extends NumberCrunch {
     private float[] values;
 
     public NumberCruncherTopLevel(float[] values) {
