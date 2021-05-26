@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 /**
  *  Top level class implements Crunchoperation
@@ -19,22 +20,32 @@ public class NumberCruncherTopLevel extends NumberCrunch {
     @Override
     public void crunch(String[] operations) {
         for (String op : operations) {
-            if(op == Operations.SUM) {
+            System.out.println(op);
+            if(op.equals(Operations.SUM)) {
                 sum();
             }
-            if(op ==  Operations.SWIRL) {
+            if(op.equals(Operations.SWIRL)) {
                 swirl();
             }
-            if(op == Operations.DIVIDE) {
+            if(op.equals(Operations.DIVIDE)) {
                 divide();
             }
-            if(op == Operations.SUBSTRACT) {
+            if(op.equals(Operations.SUBSTRACT)) {
                 substract();
             }
-            if(op == Operations.AVERAGE) {
+            if(op.equals(Operations.AVERAGE)) {
                 average();
             }
         }
+    }
+
+    /**
+     * Set values attribute
+     * @param values float array
+     */
+    public void setValues(float[] values) {
+        System.out.println(Arrays.toString(values));
+        this.values = values;
     }
 
     /**
@@ -42,7 +53,7 @@ public class NumberCruncherTopLevel extends NumberCrunch {
      * @param values float values
      */
     public void sum() {
-        values = Operations.sum(values);
+        setValues(Operations.sum(values));
     }
 
     /**
@@ -50,7 +61,7 @@ public class NumberCruncherTopLevel extends NumberCrunch {
      * @param values float array
      */
     public void swirl() {
-        values = Operations.swirl(values);
+        setValues(Operations.swirl(values));
     }
 
     /**
@@ -58,7 +69,7 @@ public class NumberCruncherTopLevel extends NumberCrunch {
      * @param values float array
      */
     public void divide() {
-        values = Operations.divide(values);
+        setValues(Operations.divide(values));
     }
 
     /**
@@ -66,7 +77,7 @@ public class NumberCruncherTopLevel extends NumberCrunch {
      * @param values float array
      */
     public void substract() {
-        values = Operations.substract(values);
+        setValues(Operations.substract(values));
     }
 
     /**
@@ -74,7 +85,7 @@ public class NumberCruncherTopLevel extends NumberCrunch {
      * @param values float array
      */
     public void average() {
-        values = Operations.average(values);
+        setValues(Operations.average(values));
     }
 
     /**

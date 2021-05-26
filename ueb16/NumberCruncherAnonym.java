@@ -18,22 +18,30 @@ public class NumberCruncherAnonym extends NumberCrunch {
     @Override
     public void crunch(String[] operations) {
         for (String op : operations) {
-            if(op == Operations.SUM) {
+            if(op.equals(Operations.SUM)) {
                 sum();
             }
-            if(op ==  Operations.SWIRL) {
+            if(op.equals(Operations.SWIRL)) {
                 swirl();
             }
-            if(op == Operations.DIVIDE) {
+            if(op.equals(Operations.DIVIDE)) {
                 divide();
             }
-            if(op == Operations.SUBSTRACT) {
+            if(op.equals(Operations.SUBSTRACT)) {
                 substract();
             }
-            if(op == Operations.AVERAGE) {
+            if(op.equals(Operations.AVERAGE)) {
                 average();
             }
         }
+    }
+
+    /**
+     * Set values attribute
+     * @param values float array
+     */
+    public void setValues(float[] values) {
+        this.values = values;
     }
 
     /**
@@ -43,9 +51,9 @@ public class NumberCruncherAnonym extends NumberCrunch {
     public void sum() {
         new NumberCruncherTopLevel(values) {
             public void sum() {
-                values = Operations.sum(values);
+                setValues(Operations.sum(values));
             }
-        };
+        }.sum();
     }
 
     /**
@@ -55,9 +63,9 @@ public class NumberCruncherAnonym extends NumberCrunch {
     public void swirl() {
         new NumberCruncherTopLevel(values) {
             public void swirl() {
-                values = Operations.swirl(values);
+                setValues(Operations.swirl(values));
             }
-        };
+        }.swirl();
     }
 
     /**
@@ -67,9 +75,9 @@ public class NumberCruncherAnonym extends NumberCrunch {
     public void divide() {
         new NumberCruncherTopLevel(values) {
             public void divide() {
-                values = Operations.divide(values);
+                setValues(Operations.divide(values));
             }
-        };
+        }.divide();
     }
 
     /**
@@ -79,9 +87,9 @@ public class NumberCruncherAnonym extends NumberCrunch {
     public void substract() {
         new NumberCruncherTopLevel(values) {
             public void substract() {
-                values = Operations.substract(values);
+                setValues(Operations.substract(values));
             }
-        };
+        }.substract();
     }
 
     /**
@@ -91,9 +99,9 @@ public class NumberCruncherAnonym extends NumberCrunch {
     public void average() {
         new NumberCruncherTopLevel(values) {
             public void average() {
-                values = Operations.average(values);
+                setValues(Operations.average(values));
             }
-        };
+        }.average();
     }
 
     /**

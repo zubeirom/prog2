@@ -128,6 +128,7 @@ public class Dialog {
                     System.out.println("Bitte erstellen sie operationen");
                 } else {
                     numberCrunch.crunch(operations);
+                    System.out.println("Operationen erfolgreich ausgeführt! \n");
                 }
                 break;
             case ENDE:
