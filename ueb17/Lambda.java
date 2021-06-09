@@ -1,6 +1,6 @@
-public class Lambda extends ApplyAndPrint {
+public class Lambda {
 
-    static MyFunction powerOf2  = (int z) -> (int) Math.pow(z, 2);
+    static MyFunction powerOf2 = (int z) -> (int) Math.pow(z, 2);
 
     static MyFunction factorial = (int z) -> {
         int fact = 0;
@@ -12,11 +12,16 @@ public class Lambda extends ApplyAndPrint {
 
     static MyFunction powerOfX = (int z) -> (int) Math.pow(z, z + 1);
 
-    static MyFunction fib = (int z) -> {
-        int fact = 1;
-        for (int a = 2; a <= z; a++) {
-            fact = fact * z;
-        }
-        return fact;
+    public static MyFunction fib;
+
+    static {
+        fib = (int z) -> {
+            if (z <= 1) {
+                return z;
+            }
+
+            return fib.apply(z - 1) + fib.apply(z - 2);
+        };
     };
+
 }

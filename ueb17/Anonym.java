@@ -1,16 +1,16 @@
-public class Anonym extends ApplyAndPrint {
+public class Anonym {
 
-    public void powerOf2(int z) {
-        new MyFunction() {
+    public MyFunction powerOf2() {
+        return new MyFunction() {
             @Override
             public int apply(int i) {
                 return (int) Math.pow(i, 2);
             }
-        }.apply(z);
+        };
     }
 
-    public void factorial(int z) {
-        new MyFunction() {
+    public MyFunction factorial() {
+        return new MyFunction() {
             @Override
             public int apply(int i) {
                 int fact = 0;
@@ -19,20 +19,20 @@ public class Anonym extends ApplyAndPrint {
                 }
                 return fact;
             }
-        }.apply(z);
+        };
     }
 
-    public void powerOfX(int z) {
-        new MyFunction() {
+    public MyFunction powerOfX() {
+        return new MyFunction() {
             @Override
             public int apply(int i) {
                 return (int) Math.pow(i, i + 1);
             }
-        }.apply(z);
+        };
     }
 
-    public void fib(int z) {
-        new MyFunction() {
+    public MyFunction fib() {
+        return new MyFunction() {
                 @Override
                 public int apply(int i) {
                     if(i <= 1) {
@@ -42,7 +42,7 @@ public class Anonym extends ApplyAndPrint {
                     return apply(i -1) + apply(i - 2);
                 }
             
-        }.apply(z);
+        };
     }
 
 }

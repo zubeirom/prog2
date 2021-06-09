@@ -1,4 +1,4 @@
-public class Factorial extends ApplyAndPrint implements MyFunction {
+public class Factorial implements MyFunction {
 
     public int apply(int z) {
         int fact = 0;
