@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
 
 /**
  * eine Klasse, die ein Lager für Artikel definiert
@@ -24,6 +26,37 @@ public class Lager {
         this.lager = new Artikel[10];
     }
 
+    /**
+     * Sort using bubble sort with custom criteria
+     * @return artikel array
+     */
+    public Artikel[] getSorted(BiPredicate<Artikel, Artikel> predicate) {
+    
+        for (int i = 0; i < this.lager.length; i++)
+            for (int j = 0; j < this.lager.length-i-1; j++)
+                if (this.lager[j] != null && this.lager[j+1] != null && predicate.test(this.lager[j], this.lager[j+1])) {
+                    Artikel temp = this.lager[j];
+                    this.lager[j] = this.lager[j+1];
+                    this.lager[j+1] = temp;
+                }
+
+        return this.lager;
+    }
+
+    /**
+     * Apply function to each article
+     * @param func functional interface
+     */
+    public void applyToArticles(Function<Artikel, Artikel> func) {
+        for (Artikel artikel : lager) {
+            artikel = func.apply(artikel);
+        }
+    }
+
+    public void applyToSomeArticles(Function f, Function fa) {
+
+    }
+ 
     /**
      * Gibt artikelanzahl zurück
      *

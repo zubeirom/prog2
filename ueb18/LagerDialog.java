@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -309,8 +310,17 @@ public class LagerDialog {
      * 
      * @param args
      */
-
     public static void main(String[] args) {
-        new LagerDialog().start();
+        // new LagerDialog().start();
+        Lager lager = new Lager();
+        for (int i = 0; i < 10; i++) {
+            lager.legeAnArtikel(new Artikel(
+                i + 2222,
+                i + "_CD",
+                25 + i
+                ));
+        }
+        new Ueb18Fassade().aufgabe_c_iv(lager);
+        System.out.println(lager.toString());
     }
 }
