@@ -110,14 +110,15 @@ public class Ueb18Fassade {
 	 * @param gesuchterAutor Der Autor, dessen Buecher guenstiger werden sollen.
 	 */
 	public void aufgabe_h_iii(Lager lager, String gesuchterAutor) {
-		List<Predicate<Artikel>> allPredicates = new ArrayList<Predicate<Artikel>>();
-		allPredicates.add(a -> a instanceof Buch);
-		allPredicates.add(a -> {
-			Buch b = (Buch) a;
-			return b.getAutor().equals(gesuchterAutor);
-		});
-		lager.filterAll(allPredicates);
-		lager.applyToArticles(a -> {
+		lager.applyToSomeArticles(a -> {
+			if(a instanceof Buch) {
+				Buch b = (Buch) a;
+				if(b.getAutor().equals(gesuchterAutor)) {
+					return true;
+				}
+			}
+			return false;
+		}, a -> {
 			a.setPreis(a.getPreis() * 0.95);
 			return a;
 		});
@@ -161,6 +162,13 @@ public class Ueb18Fassade {
 	 * @return Alle Buecher vom Autor autor und mit einem Preis, der zwischen minPreis und maxPreis liegt.
 	 */
 	public Artikel[] aufgabe_h_vi(Lager lager, String gesuchterAutor, double minPreis, double maxPreis) {
-		return null;
+		List<Predicate<Artikel>> allPredicates = new ArrayList<Predicate<Artikel>>();
+		allPredicates.add(a -> a instanceof Buch);
+		allPredicates.add(a -> {
+			Buch b = (Buch) a;
+			return b.getAutor().equals(gesuchterAutor);
+		});
+		allPredicates.add(a -> a.getPreis() >= minPreis && a.getPreis() <= maxPreis);
+		return lager.filterAll(allPredicates);
 	}
 }
