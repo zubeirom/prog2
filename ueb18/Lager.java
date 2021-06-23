@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -61,11 +63,11 @@ public class Lager {
      * @param operation Operation in which we apply the filtered articles
      */
     public void applyToSomeArticles(Predicate<Artikel> predicate, Function<Artikel, Artikel> operation) {
-        Artikel[] filtered = filter(predicate);
-        for (Artikel artikel : filtered) {
-            artikel = operation.apply(artikel);
+        for (Artikel artikel : this.lager) {
+            if(predicate.test(artikel)) {
+                artikel = operation.apply(artikel);
+            }
         }
-        this.lager = filtered;
     }
 
     /**
@@ -84,9 +86,9 @@ public class Lager {
      * @param predicates list of predicates
      * @return filtered articles
      */
-    public <T> Artikel[] filterAll(Predicate<T>[] predicates, T[] arr) {
-        return (Artikel[]) Arrays.stream(arr).filter(
-            Arrays.stream(predicates).reduce(x -> true, Predicate::and)
+    public Artikel[] filterAll(List<Predicate<Artikel>> predicates) {
+        return (Artikel[]) Arrays.stream(this.lager).filter(
+            predicates.stream().reduce(x -> true, Predicate::and)
         ).toArray();
     }
  

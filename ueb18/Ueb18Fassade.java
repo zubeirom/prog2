@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -94,8 +96,7 @@ public class Ueb18Fassade {
 	 * @param lager Das Lager mit den Artikeln. Die Aenderungen werden direkt in diesem Objekt vorgenommen.
 	 */
 	public void aufgabe_h_ii(Lager lager) {
-		lager.filter(a -> a.getBestand() <= 2);
-		lager.applyToArticles(a -> {
+		lager.applyToSomeArticles(a -> a.getBestand() <= 2, a -> {
 			a.setPreis(a.getPreis() * 0.95);
 			return a;
 		});
@@ -109,10 +110,17 @@ public class Ueb18Fassade {
 	 * @param gesuchterAutor Der Autor, dessen Buecher guenstiger werden sollen.
 	 */
 	public void aufgabe_h_iii(Lager lager, String gesuchterAutor) {
-		Predicate<Buch> predicates = a -> a.getAutor().equals(gesuchterAutor);
-
-		lager.filterAll(
-		);
+		List<Predicate<Artikel>> allPredicates = new ArrayList<Predicate<Artikel>>();
+		allPredicates.add(a -> a instanceof Buch);
+		allPredicates.add(a -> {
+			Buch b = (Buch) a;
+			return b.getAutor().equals(gesuchterAutor);
+		});
+		lager.filterAll(allPredicates);
+		lager.applyToArticles(a -> {
+			a.setPreis(a.getPreis() * 0.95);
+			return a;
+		});
 	}
 
 	/**
@@ -122,6 +130,11 @@ public class Ueb18Fassade {
 	 * @param lager Das Lager mit den Artikeln. Die Aenderungen werden direkt in diesem Objekt vorgenommen.
 	 */
 	public void aufgabe_h_iv(Lager lager) {
+		lager.applyToSomeArticles(a -> a instanceof CD, a -> a.aenderePreis(10));
+		lager.applyToSomeArticles(a -> a.getBestand() <= 2 , a -> {
+			a.setPreis(a.getPreis() * 0.95);
+			return a;
+		});
 	}
 
 	/**
@@ -131,7 +144,11 @@ public class Ueb18Fassade {
 	 * @return Eine Liste mit allen Buechern, sortiert nach den Namen der Autoren. 
 	 */
 	public Artikel[] aufgabe_h_v(Lager lager) {
-		return null;
+		return lager.getArticles(a -> a instanceof Buch, (i, o) -> {
+			Buch b1 = (Buch) i;
+			Buch b2 = (Buch) o; 
+			return b1.getAutor().compareTo(b2.getAutor()) > 0;
+		});
 	}
 
 	/**
