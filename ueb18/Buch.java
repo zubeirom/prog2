@@ -6,6 +6,7 @@
  * @version 1.0
  */
 public class Buch extends Artikel {
+
     private String titel;
     private String autor;
     private String verlag;
@@ -15,7 +16,7 @@ public class Buch extends Artikel {
     }
 
     public Buch(int artikelNr, int bestand, double preis, String autor, String titel, String verlag) {
-        super(artikelNr, ArtikelTypen.MEDIEN, bestand, preis);
+        super(artikelNr, ArtikelTypen.MEDIEN, bestand, preis, Kategorie.BUCH);
         if (titel != null && !titel.trim().isEmpty()) {
             this.titel = titel;
         } else {

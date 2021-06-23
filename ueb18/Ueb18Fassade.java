@@ -1,4 +1,5 @@
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * <p>Diese Klasse ist eine Fassade, hinter der Sie Ihre Loesung verstecken. Der Test ruft nur die hier definierten
@@ -24,7 +25,7 @@ public class Ueb18Fassade {
 	 * @return Die sortierte Artikelliste.
 	 */
 	public Artikel[] aufgabe_c_i(Lager lager) {
-		lager.getSorted((i, o) -> i.getArt().compareTo(o.getArt()) > 0);
+		lager.getSorted((i, o) -> i.getKategorie().toString().compareTo(o.getKategorie().toString()) > 0);
 		lager.getSorted((i, o) -> i.getBestand() > o.getBestand());
 		return lager.getSorted((i, o) -> i.getPreis() > o.getPreis());
 	}
@@ -83,7 +84,7 @@ public class Ueb18Fassade {
 	 * @param lager Das Lager mit den Artikeln. Die Aenderungen werden direkt in diesem Objekt vorgenommen.
 	 */
 	public void aufgabe_h_i(Lager lager) {
-		// lager.applyToSomeArticles(a -> a instanceof CD, a -> a.aenderePreis(10));
+		lager.applyToSomeArticles(a -> a instanceof CD, a -> a.aenderePreis(10));
 	}
 
 	/**
@@ -93,6 +94,11 @@ public class Ueb18Fassade {
 	 * @param lager Das Lager mit den Artikeln. Die Aenderungen werden direkt in diesem Objekt vorgenommen.
 	 */
 	public void aufgabe_h_ii(Lager lager) {
+		lager.filter(a -> a.getBestand() <= 2);
+		lager.applyToArticles(a -> {
+			a.setPreis(a.getPreis() * 0.95);
+			return a;
+		});
 	}
 
 	/**
@@ -103,6 +109,10 @@ public class Ueb18Fassade {
 	 * @param gesuchterAutor Der Autor, dessen Buecher guenstiger werden sollen.
 	 */
 	public void aufgabe_h_iii(Lager lager, String gesuchterAutor) {
+		Predicate<Buch> predicates = a -> a.getAutor().equals(gesuchterAutor);
+
+		lager.filterAll(
+		);
 	}
 
 	/**

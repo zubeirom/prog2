@@ -16,7 +16,7 @@ public class Video extends Artikel {
     }
 
     public Video(int artikelNr, int bestand, double preis, String titel, int spieldauer, int jahr) {
-        super(artikelNr, ArtikelTypen.MEDIEN, bestand, preis);
+        super(artikelNr, ArtikelTypen.MEDIEN, bestand, preis, Kategorie.VIDEO);
         if (titel != null && !titel.trim().isEmpty()) {
             this.titel = titel;
         } else {

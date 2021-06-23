@@ -14,8 +14,9 @@ public class Artikel {
     private String art;
     private int bestand;
     private double preis;
+    private Kategorie kategorie;
 
-    public Artikel(int artikelNr, String art, int bestand, double preis) {
+    public Artikel(int artikelNr, String art, int bestand, double preis, Kategorie kategorie) {
         if (artikelNr > 999 && artikelNr < 10000) {
             this.artikelNr = artikelNr;
         } else {
@@ -26,6 +27,7 @@ public class Artikel {
         } else {
             throw new IllegalArgumentException("Artikelart muss angegeben werden");
         }
+        this.kategorie = kategorie;
         if (bestand > 0) {
             this.bestand = bestand;
         } else {
@@ -54,6 +56,31 @@ public class Artikel {
         } else {
             throw new IllegalArgumentException("Preis darf nicht kleiner als null sein");
         }
+    }
+
+    /**
+     * Get kategorie
+     * @return kategorie
+     */
+    public Kategorie getKategorie() {
+        return kategorie;
+    }
+
+    /**
+     * set kategorie
+     * @param kategorie
+     */
+    public void setKategorie(Kategorie kategorie) {
+        this.kategorie = kategorie;
+    }
+
+    /**
+     * Preis wird um prozent erhöht
+     * @param number prozentsatz
+     */
+    public Artikel aenderePreis(int number) {
+        setPreis(preis + (preis * (number/100)));
+        return this;
     }
 
     /**

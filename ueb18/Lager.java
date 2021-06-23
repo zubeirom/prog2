@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * eine Klasse, die ein Lager für Artikel definiert
@@ -31,30 +32,62 @@ public class Lager {
      * @return artikel array
      */
     public Artikel[] getSorted(BiPredicate<Artikel, Artikel> predicate) {
-    
-        for (int i = 0; i < this.lager.length; i++)
-            for (int j = 0; j < this.lager.length-i-1; j++)
-                if (this.lager[j] != null && this.lager[j+1] != null && predicate.test(this.lager[j], this.lager[j+1])) {
-                    Artikel temp = this.lager[j];
-                    this.lager[j] = this.lager[j+1];
-                    this.lager[j+1] = temp;
-                }
-
-        return this.lager;
+        return sort(predicate, this.lager);
     }
 
     /**
      * Apply function to each article
      * @param func functional interface
      */
-    public void applyToArticles(Function<Artikel, Artikel> func) {
+    public void applyToArticles(Function<Artikel, Artikel> operation) {
         for (Artikel artikel : lager) {
-            artikel = func.apply(artikel);
+            artikel = operation.apply(artikel);
         }
     }
 
-    public void applyToSomeArticles(Function f, Function fa) {
+    
+    /**
+     * Filter articles by criteria
+     * @param predicate will determine if criteria applies
+     * @return new article array
+     */
+    public Artikel[] filter(Predicate<Artikel> predicate) {
+        return (Artikel[]) Arrays.stream(this.lager).filter(predicate).toArray();
+    }
 
+    /**
+     * Apply operation to filtered article by criteria
+     * @param predicate Criteria in which we filter the articles;
+     * @param operation Operation in which we apply the filtered articles
+     */
+    public void applyToSomeArticles(Predicate<Artikel> predicate, Function<Artikel, Artikel> operation) {
+        Artikel[] filtered = filter(predicate);
+        for (Artikel artikel : filtered) {
+            artikel = operation.apply(artikel);
+        }
+        this.lager = filtered;
+    }
+
+    /**
+     * Search article by criteria and return sorted by criteria
+     * @param search search criteria
+     * @param sort sort operation
+     * @return search and sorted array
+     */
+    public Artikel[] getArticles(Predicate<Artikel> search, BiPredicate<Artikel, Artikel> sort) {
+        Artikel[] filtered = filter(search);
+        return sort(sort, filtered);
+    }
+
+    /**
+     * Run multiple filters on lager and return it;
+     * @param predicates list of predicates
+     * @return filtered articles
+     */
+    public <T> Artikel[] filterAll(Predicate<T>[] predicates, T[] arr) {
+        return (Artikel[]) Arrays.stream(arr).filter(
+            Arrays.stream(predicates).reduce(x -> true, Predicate::and)
+        ).toArray();
     }
  
     /**
@@ -232,6 +265,24 @@ public class Lager {
      */
     private int searchEmptySpace() {
         return Arrays.asList(lager).indexOf(null);
+    }
+
+    /**
+     * generic bubble sort operation to use for article lists
+     * @param predicate sort criteria
+     * @param artikel article list
+     * @return sorted article array
+     */
+    private Artikel[] sort(BiPredicate<Artikel, Artikel> predicate, Artikel[] artikel) {
+        for (int i = 0; i < artikel.length; i++)
+            for (int j = 0; j < artikel.length-i-1; j++)
+                if (artikel[j] != null && artikel[j+1] != null && predicate.test(artikel[j], artikel[j+1])) {
+                    Artikel temp = artikel[j];
+                    artikel[j] = artikel[j+1];
+                    artikel[j+1] = temp;
+                }
+
+        return artikel;
     }
 
 }

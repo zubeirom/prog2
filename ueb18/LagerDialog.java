@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -54,7 +53,7 @@ public class LagerDialog {
         if (bestand == 0) {
             neuerArtikel = new Artikel(artikelNr, art, preis);
         } else {
-            neuerArtikel = new Artikel(artikelNr, art, bestand, preis);
+            neuerArtikel = new Artikel(artikelNr, art, bestand, preis, null);
         }
 
         System.out.println();

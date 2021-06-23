@@ -7,6 +7,7 @@
  */
 public class CD extends Artikel {
 
+
     private String interpret;
     private String titel;
     private int anzahlTitel;
@@ -16,7 +17,7 @@ public class CD extends Artikel {
     }
 
     public CD(int artikelNr, int bestand, double preis, String interpret, String titel, int anzahlTitel) {
-        super(artikelNr, ArtikelTypen.MEDIEN, bestand, preis);
+        super(artikelNr, ArtikelTypen.MEDIEN, bestand, preis, Kategorie.CD);
         if (titel != null && !titel.trim().isEmpty()) {
             this.titel = titel;
         } else {
