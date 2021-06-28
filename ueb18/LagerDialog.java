@@ -23,6 +23,7 @@ public class LagerDialog {
     private static final int LAGERANLEGEN = 11;
     private static final int ARTIKELANZAHL = 12;
     private static final int ALLEARTIKEL = 13;
+    private static final int APPLY = 14;
     private static final int ENDE = 0;
 
     /**
@@ -172,7 +173,7 @@ public class LagerDialog {
                 + ABGANGBUCHEN + ": Bestand des Artikels verringern; \n" + LAGERGROESSE + ": Lagergrösse anzeigen; \n"
                 + ENTFERNEARTIKEL + ": Entferne artikel; \n" + PREISEBEARBEITEN + ": Preise nach prozen bearbeiten; \n"
                 + BESTANDAUSGEBEN + ": Bestand des Lagers ausgeben; \n" + LAGERANLEGEN + ": Lager anlegen; \n"
-                + ARTIKELANZAHL + ": Artikel anzahl; \n" + ALLEARTIKEL + ": Alle artikel zeigen; \n" + ENDE
+                + ARTIKELANZAHL + ": Artikel anzahl; \n" + ALLEARTIKEL + ": Alle artikel zeigen; \n" + APPLY + ": Apply; \n" + ENDE
                 + ": beenden -> ");
         return input.nextInt();
     }
@@ -270,6 +271,9 @@ public class LagerDialog {
                 }
                 System.out.println(lager.toString());
                 break;
+            case APPLY:
+                apply();
+                lager.toString();
             case ENDE:
                 System.out.println("Programmende");
                 break;
@@ -304,6 +308,12 @@ public class LagerDialog {
         }
     }
 
+    public void apply() {
+        Ueb18Fassade fas = new Ueb18Fassade();
+        fas.aufgabe_h_i(lager);
+        fas.aufgabe_h_ii(lager);
+    }
+
     /**
      * Main methode
      * 
@@ -311,15 +321,19 @@ public class LagerDialog {
      */
     public static void main(String[] args) {
         // new LagerDialog().start();
-        Lager lager = new Lager();
-        for (int i = 0; i < 10; i++) {
-            lager.legeAnArtikel(new Artikel(
-                i + 2222,
-                i + "_CD",
-                25 + i
-                ));
-        }
-        new Ueb18Fassade().aufgabe_c_iv(lager);
-        System.out.println(lager.toString());
+        Ueb18Fassade fas = new Ueb18Fassade();
+        Lager lag = new Lager();
+        CD cd = new CD(1234, 1, 35, "VDf", "dfvdf", 55);
+        CD cd2 = new CD(1234, 2, 56, "VDf", "dfvdf", 55);
+        CD cd3 = new CD(1234, 34, 20, "VDf", "dfvdf", 55);
+        Video v = new Video(3435, 8, 56, "csc", 688, 1998);
+
+        lag.legeAnArtikel(cd);
+        lag.legeAnArtikel(cd2);
+        lag.legeAnArtikel(cd3);
+        lag.legeAnArtikel(v);
+        
+        fas.aufgabe_h_i(lag);
+
     }
 }

@@ -62,9 +62,10 @@ public class Lager {
      * @param operation Operation in which we apply the filtered articles
      */
     public void applyToSomeArticles(Predicate<Artikel> predicate, Function<Artikel, Artikel> operation) {
-        for (Artikel artikel : this.lager) {
-            if(predicate.test(artikel)) {
-                artikel = operation.apply(artikel);
+        for (int i = 0; i < this.lager.length; i++) {
+            if(predicate.test(this.lager[i])) {
+                System.out.println("is CD");
+                this.lager[i] = operation.apply(this.lager[i]);
             }
         }
     }

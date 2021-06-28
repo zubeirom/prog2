@@ -87,6 +87,7 @@ public class Ueb18Fassade {
 	 */
 	public void aufgabe_h_i(Lager lager) {
 		lager.applyToSomeArticles(a -> a instanceof CD, a -> a.aenderePreis(10));
+		System.out.println(lager.toString());
 	}
 
 	/**
@@ -96,10 +97,11 @@ public class Ueb18Fassade {
 	 * @param lager Das Lager mit den Artikeln. Die Aenderungen werden direkt in diesem Objekt vorgenommen.
 	 */
 	public void aufgabe_h_ii(Lager lager) {
-		lager.applyToSomeArticles(a -> a.getBestand() <= 2, a -> {
+		lager.applyToSomeArticles(a -> a != null && a.getBestand() <= 2, a -> {
 			a.setPreis(a.getPreis() * 0.95);
 			return a;
 		});
+		System.out.println(lager.toString());
 	}
 
 	/**
