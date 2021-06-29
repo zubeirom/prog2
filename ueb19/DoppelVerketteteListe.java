@@ -340,18 +340,6 @@ public class DoppelVerketteteListe<E> implements List<E> {
         };
     }
 
-    private boolean exists(Object o) {
-        Node<E> temp = head;
-        while (temp.getNext() != null) {
-            if (temp.getData() == o) {
-                return true;
-            }
-            temp = temp.getNext();
-        }
-
-        return false;
-    }
-
     private Node<E> getByObject(Object o) {
         Node<E> temp = head;
         Iterator<E> it = iterator();
