@@ -1,0 +1,294 @@
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+/**
+ * Doppel verkettete liste
+ */
+public class DoppelVerketteteListe<E> implements List<E> {
+
+    // Head of the list;
+    private Node<E> head;
+
+    public DoppelVerketteteListe() {
+    };
+
+    public DoppelVerketteteListe(Node<E> head) {
+        this.head = head;
+    }
+
+    /**
+     * Get size of doubly linked list;
+     */
+    @Override
+    public int size() {
+        int counter = 0;
+        Node<E> temp = head;
+        while (temp != null) {
+            counter++;
+            temp = temp.getNext();
+        }
+        return counter;
+    }
+
+    /**
+     * Check if doubly linked list is empty
+     */
+    @Override
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    /**
+     * Check if doubly linked has object
+     */
+    @Override
+    public boolean contains(Object o) {
+        Node<E> temp = head;
+        while (temp != null) {
+            if (temp.equals(o)) {
+                return true;
+            }
+            temp = temp.getNext();
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            Node<E> node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public E next() {
+                E data = node.getData();
+                node = node.getNext();
+                return data;
+            }
+        };
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean add(E e) {
+        Node<E> newNode = new Node<E>(e);
+        Node<E> lastNode = head;
+
+        if (head == null) {
+            head = newNode;
+            return true;
+        }
+
+        while (lastNode.getNext() != null) {
+            lastNode = lastNode.getNext();
+        }
+
+        lastNode.setNext(newNode);
+        newNode.setPrev(lastNode);
+        newNode.setNext(null);
+
+        return true;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if (head == null || o == null) {
+            return false;
+        }
+
+        Node<E> temp = getByObject(o);
+
+        if (temp == null) {
+            return false;
+        }
+
+        if (temp == head) {
+            head = temp.getNext();
+        }
+
+        if (temp.getNext() != null) {
+            temp.getNext().setPrev(temp.getPrev());
+        }
+
+        if (temp.getPrev() != null) {
+            temp.getPrev().setNext(temp.getNext());
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        int oldSize = size();
+        for (E e : c) {
+            add(e);
+        }
+        if (oldSize == size()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void clear() {
+        head = null;
+    }
+
+    @Override
+    public E get(int index) {
+        if (index < 0)
+            return null;
+
+        int counter = 0;
+        Node<E> temp = head;
+        while (temp.getNext() != null) {
+            if (counter == index) {
+                return temp.getData();
+            }
+            counter++;
+            temp = temp.getNext();
+        }
+        return null;
+    }
+
+    @Override
+    public E set(int index, E element) {
+        int counter = 0;
+        Node<E> temp = head;
+        while (temp.getNext() != null) {
+            if (counter == index) {
+                E prev = temp.getData();
+                temp.setData(element);
+                return prev;
+            }
+            temp = temp.getNext();
+        }
+        return null;
+    }
+
+    @Override
+    public void add(int index, E element) {
+        int counter = 0;
+        Node<E> temp = head;
+        Node<E> newNode = new Node<E>(element);
+
+        while(temp.getNext() != null) {
+            if(counter == index) {
+                newNode.setNext(temp);
+                newNode.setPrev(temp.getPrev());
+                temp.getPrev().setNext(newNode);
+                temp.setPrev(newNode);
+                return;
+            }
+            temp = temp.getNext();
+        }
+    }
+
+    @Override
+    public E remove(int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    private boolean exists(Object o) {
+        Node<E> temp = head;
+        while (temp.getNext() != null) {
+            if (temp.getData() == o) {
+                return true;
+            }
+            temp = temp.getNext();
+        }
+
+        return false;
+    }
+
+    private Node<E> getByObject(Object o) {
+        Node<E> temp = head;
+        while (temp.getNext() != null) {
+            if (temp.getData() == o) {
+                return temp;
+            }
+            temp = temp.getNext();
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        String s = "null<-->";
+        if(head.getNext() == null) {
+            s += "[ " + head.getData() + " ]" + "<---->null";
+            return s;
+        }
+
+        Node<E> temp = head;
+        while(temp.getNext() != null) {
+            s += temp.getData() + "<---->";
+        }
+        s += "<---->null";
+        return s;
+    }
+
+    @Override
+    public ListIterator<E> listIterator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<E> subList(int fromIndex, int toIndex) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object[] toArray() {
+        throw new UnsupportedOperationException();
+    }
+}
