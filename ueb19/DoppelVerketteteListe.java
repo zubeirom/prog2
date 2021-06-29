@@ -77,19 +77,15 @@ public class DoppelVerketteteListe<E> implements List<E> {
     @Override
     public <T> T[] toArray(T[] a) {
         int counter = 0;
-        if(head == null) {
-            return a;
-        }
-        if(head.getNext() == null) {
-            a[0] = (T) head.getData();
-            return a;
-        }
-        a[0] = (T) head.getData();
+
+        Iterator<E> it = iterator();
+        
         Node<E> temp = head;
-        while(temp.getNext() != null) {
-            counter++;
-            temp = temp.getNext();
+        while(it.hasNext()) {
             a[counter] = (T) temp.getData();
+            temp = temp.getNext();
+            counter++;
+            it.next();
         }
 
         return a;
