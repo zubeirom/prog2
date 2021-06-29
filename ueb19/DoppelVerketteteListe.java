@@ -79,7 +79,7 @@ public class DoppelVerketteteListe<E> implements List<E> {
         int counter = 0;
 
         Iterator<E> it = iterator();
-        
+
         Node<E> temp = head;
         while(it.hasNext()) {
             a[counter] = (T) temp.getData();
@@ -163,12 +163,16 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
         int counter = 0;
         Node<E> temp = head;
-        while (temp.getNext() != null) {
+
+        Iterator<E> it = iterator();
+
+        while(it.hasNext()) {
             if (counter == index) {
                 return temp.getData();
             }
             counter++;
             temp = temp.getNext();
+            it.next();
         }
         return null;
     }
