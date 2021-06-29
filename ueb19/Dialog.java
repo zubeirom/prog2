@@ -15,14 +15,11 @@ public class Dialog {
         dll.add(0);
         dll.add(1);
         dll.add(456);
-        dll.add(3);
-        dll.add(234);
-        dll.add(3);
-        dll.add(4);
+        dll.add(10);
 
         System.out.println(dll);
 
-        dll.add(4, 45);
+        System.out.println(dll.remove(1));
 
         System.out.println(dll);
 

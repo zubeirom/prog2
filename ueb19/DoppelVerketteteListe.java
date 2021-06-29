@@ -231,18 +231,35 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
     @Override
     public E remove(int index) {
+        if(index >= size() || index < 0) {
+            throw new IllegalArgumentException("Index not available");
+        }
         int counter = 0;
         Node<E> temp = head;
-        while(temp.getNext() != null) {
+        Iterator<E> it = iterator();
+
+        if(index == 0) {
+            head = head.getNext();
+            return temp.getData();
+        }
+
+        while(it.hasNext()) {
             if(counter == index) {
                 temp.getPrev().setNext(temp.getNext());
-                temp.getNext().setPrev(temp.getPrev());
+                if(temp.getNext() != null) {
+                    temp.getNext().setPrev(temp.getPrev());
+                }
                 temp.setPrev(null);
                 temp.setNext(null);
                 return temp.getData();
             }
+            if(counter == size() - 1) {
+                temp.setPrev(null);
+                return temp.getData();
+            }
             counter++;
             temp = temp.getNext();
+            it.next();
         }
         return null;
     }
