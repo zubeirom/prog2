@@ -477,8 +477,4 @@ public class DoppelVerketteteListe<E> implements List<E> {
     public Object[] toArray() {
         throw new UnsupportedOperationException();
     }
-
-	public long[] toArray(int[] a) {
-		return null;
-	}
 }
