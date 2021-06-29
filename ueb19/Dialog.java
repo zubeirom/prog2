@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -10,11 +12,12 @@ import java.util.Scanner;
  */
 public class Dialog {
 
-    List lager;
+    List liste;
+    Type type;
     private Scanner input = new Scanner(System.in);
 
     // Klassenkonstanten
-    private static final int GROESSE = 1;
+    private static final int SIZE = 1;
     private static final int ISEMPTY = 2;
     private static final int CONTAINS = 3;
     private static final int TOARRAY = 5;
@@ -25,153 +28,350 @@ public class Dialog {
     private static final int SET = 12;
     private static final int GET = 13;
     private static final int ADDBYINDEX = 14;
-    private static final int REMOVEBYINDEX = 14;
-    private static final int INDEXOF = 14;
+    private static final int REMOVEBYINDEX = 15;
+    private static final int INDEXOF = 16;
+    private static final int CREATE = 17;
+    private static final int SHOW = 18;
     private static final int ENDE = 0;
 
-    // private int einleseFunktion() {
-    //     System.out.println("--------- Lager System ---------");
-    //     if (lager == null) {
-    //         System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //     }
-    //     System.out.print(ARTIKELANLEGEN + ": Artikel anlegen; \n" + ZUGANGBUCHEN + ": Bestand des artikels erhöhen; \n"
-    //             + ABGANGBUCHEN + ": Bestand des Artikels verringern; \n" + LAGERGROESSE + ": Lagergrösse anzeigen; \n"
-    //             + ENTFERNEARTIKEL + ": Entferne artikel; \n" + PREISEBEARBEITEN + ": Preise nach prozen bearbeiten; \n"
-    //             + BESTANDAUSGEBEN + ": Bestand des Lagers ausgeben; \n" + LAGERANLEGEN + ": Lager anlegen; \n"
-    //             + ARTIKELANZAHL + ": Artikel anzahl; \n" + ALLEARTIKEL + ": Alle artikel zeigen; \n" + APPLY + ": Apply; \n" + ENDE
-    //             + ": beenden -> ");
-    //     return input.nextInt();
-    // }
+    public void createLinkedList() {
+        System.out.println();
+        System.out.println("Wähle Datentyp - defaults to integer");
+        System.out.println("1: String \n" + "2: Integer \n" + "3: Double \n");
+        System.out.print("Eingabe: ");
+        int value = input.nextInt();
+        switch (value) {
+            case 1:
+                liste = new DoppelVerketteteListe<String>();
+                type = Type.STRING;
+                break;
+            case 2:
+                liste = new DoppelVerketteteListe<Integer>();
+                type = Type.INTEGER;
+                break;
+            case 3:
+                liste = new DoppelVerketteteListe<Double>();
+                type = Type.DOUBLE;
+                break;
+            default:
+                liste = new DoppelVerketteteListe<Integer>();
+                break;
+        }
 
-    // /**
-    //  * Hier erhalten wird den Bestand
-    //  * 
-    //  * @return Ganzzahl eingabe vom benutzer
-    //  */
+    }
 
-    // private int bestandEingabe() {
-    //     System.out.println("Bestand: ");
-    //     return input.nextInt();
-    // }
+    /**
+     * Print size of list
+     */
+    public void printSize() {
+        System.out.println();
+        System.out.println("Grösse: " + liste.size());
+    }
 
-    // /**
-    //  * Hier wird abhängig vom benutzer die richtige artikel methode ausgeführt
-    //  * 
-    //  * @param funktion Befehl des benutzer
-    //  */
-    // private void ausfuehrenFunktion(int funktion) {
-    //     switch (funktion) {
-    //         case LAGERANLEGEN:
-    //             lager = lagerAnlegen();
-    //             break;
-    //         case ARTIKELANLEGEN:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             Artikel artikel = artikelAnlegen();
-    //             lager.legeAnArtikel(artikel);
-    //             break;
-    //         case ZUGANGBUCHEN:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println("Artikelnummer: ");
-    //             int artikelNr = input.nextInt();
-    //             lager.bucheZugang(artikelNr, bestandEingabe());
-    //             break;
-    //         case ABGANGBUCHEN:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println("Artikelnummer: ");
-    //             int artikelNr1 = input.nextInt();
-    //             lager.bucheZugang(artikelNr1, bestandEingabe());
-    //             break;
-    //         case LAGERGROESSE:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println("Die Lagergrösse ist " + lager.getLagerGroesse());
-    //             break;
-    //         case ENTFERNEARTIKEL:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println("Artikelnummer: ");
-    //             int artikelNr2 = input.nextInt();
-    //             lager.entferneArtikel(artikelNr2);
-    //             break;
-    //         case PREISEBEARBEITEN:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println("Prozent: ");
-    //             Double prozent = input.nextDouble();
-    //             lager.aenderePreisAllerArtikel(prozent);
-    //             break;
-    //         case ARTIKELANZAHL:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println("Die Artikelanzahl lautet " + lager.getArtikelAnzahl());
-    //             break;
-    //         case BESTANDAUSGEBEN:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             lager.ausgebenBestandsListe();
-    //             break;
-    //         case ALLEARTIKEL:
-    //             if (lager == null) {
-    //                 System.out.println("Kein Lager vorhanden! Bitte erstellen sie ein Lager, geben sie 11 ein");
-    //                 break;
-    //             }
-    //             System.out.println(lager.toString());
-    //             break;
-    //         case APPLY:
-    //             apply();
-    //             lager.toString();
-    //         case ENDE:
-    //             System.out.println("Programmende");
-    //             break;
-    //         default:
-    //             System.out.println("Falsche Funktion!");
-    //             break;
-    //     }
-    // }
+    /**
+     * Print if list is empty or not
+     */
+    public void printIsEmpty() {
+        System.out.println();
+        if (liste.isEmpty())
+            System.out.println("Liste ist leer");
+        else
+            System.out.println("Liste ist nicht leer");
+    }
 
-    // /**
-    //  * Hauptschleife des Testprogramms
-    //  */
-    // public void start() {
-    //     int funktion = -1;
+    /**
+     * Print if list contains
+     */
+    public void printContains() {
+        System.out.println();
+        System.out.println("Eingabe: ");
+        Object o = typeSafeInput();
 
-    //     while (funktion != ENDE) {
-    //         try {
-    //             funktion = einleseFunktion();
-    //             ausfuehrenFunktion(funktion);
-    //         } catch (IllegalArgumentException e) {
-    //             System.out.println(e);
-    //         } catch (NullPointerException e) {
-    //             System.out.println("Lager oder Artikel exestiert nicht! Bitte erstellen sie diese zuerst.");
-    //         } catch (InputMismatchException e) {
-    //             System.out.println(e + " Falsche Eingabe!");
-    //             input.nextLine();
-    //         } catch (Exception e) {
-    //             System.out.println(e + " Programm beendet");
-    //             funktion = ENDE;
-    //         }
-    //     }
-    // }
+        System.out.println();
+        System.out.println("Ergebnis: " + liste.contains(o));
+    }
 
+    /**
+     * Print array of list;
+     */
+    public void printArray() {
+        System.out.println();
+        if(type == Type.STRING) {
+            String[] s = new String[liste.size()];
+            System.out.println(Arrays.toString(
+                liste.toArray(s)
+            ));
+        }
+        if(type == Type.INTEGER) {
+            Integer[] s = new Integer[liste.size()];
+            System.out.println(Arrays.toString(
+                liste.toArray(s)
+            ));
+        }
+        if(type == Type.DOUBLE) {
+            Double[] s = new Double[liste.size()];
+            System.out.println(Arrays.toString(
+                liste.toArray(s)
+            ));
+        }
+    }
+
+    /**
+     * Add to end of list
+     */
+    public void add() {
+        System.out.println();
+        System.out.print("Eingabe: ");
+        Object o = typeSafeInput();
+
+        liste.add(o);
+        show();
+    }
+
+    /**
+     * Show list
+     */
+    public void show() {
+        System.out.println();
+        System.out.println(liste);
+        System.out.println();
+    }
+
+    /**
+     * Remove by value
+     */
+    public void removeByValue() {
+        System.out.println();
+        System.out.println("Eingabe: ");
+        Object o = typeSafeInput();
+
+        liste.remove(o);
+        show();
+    }
+
+    /**
+     * Append list
+     * Static functionality due to laziness
+     */
+    public void addAll() {
+        List l;
+
+        if (type == Type.INTEGER) {
+            l = new ArrayList<Integer>();
+            l.add(555);
+            l.add(666);
+            l.add(777);
+        } else if (type == Type.DOUBLE) {
+            l = new ArrayList<Double>();
+            l.add(54.6);
+            l.add(66.6);
+            l.add(77.7);
+        } else {
+            l = new ArrayList<Double>();
+            l.add("AAA");
+            l.add("BBB");
+            l.add("CCC");
+        }
+        liste.addAll(l);
+        show();
+    }
+
+    /**
+     *  Clear list
+     */
+    public void clear(){
+        liste.clear();
+        show();
+    }
+
+    /**
+     * get value
+     */
+    public void get() {
+        System.out.println();
+        System.out.print("Index: ");
+        int index = input.nextInt();
+        System.out.println("Ergebnis: " + liste.get(index));
+    }
+
+    /**
+     * set value
+     */
+    public void set() {
+        System.out.println();
+        System.out.print("Index: ");
+        int index = input.nextInt();
+        System.out.println("Ersetze durch: ");
+        Object o = typeSafeInput();
+        liste.set(index, o);
+        show();
+    }
+
+    /**
+     * Add to list by index
+     */
+    public void addByIndex() {
+        System.out.println();
+        System.out.print("Index: ");
+        int index = input.nextInt();
+        System.out.println("Wert: ");
+        Object o = typeSafeInput();
+        liste.add(index, o);
+        show();
+    }
+
+
+    /**
+     * remove to list by index
+     */
+    public void removeByIndex() {
+        System.out.println();
+        System.out.print("Index: ");
+        int index = input.nextInt();
+        liste.remove(index);
+        show();
+    }
+
+    /**
+     * Get index by value
+     */
+    public void indexOf() {
+        System.out.println();
+        System.out.print("Wert: ");
+        Object o = typeSafeInput();
+        System.out.println("Ergebnis: " + liste.indexOf(o));
+    }
+
+    /**
+     * 
+     * @return Object 
+     */
+    private Object typeSafeInput() {
+        Object o;
+        if (type == Type.INTEGER) {
+            o = input.nextInt();
+        } else if (type == Type.DOUBLE) {
+            o = input.nextDouble();
+        } else {
+            o = input.next();
+        }
+        return  o;
+    }
+
+    /**
+     * Einzelne befehle werden hier angezeigt
+     * 
+     * @return Ganzzahl eingabe des benutzer
+     */
+    private int einleseFunktion() {
+        System.out.println("--------- Liste System ---------");
+        if (liste == null) {
+            System.out.println("Keine Liste vorhanden! Bitte erstellen sie ein Liste, geben sie 17 ein\n");
+        }
+        System.out.print(SIZE + ": size(); \n" + ISEMPTY + ": isEmpty(); \n" + CONTAINS
+                + ": contains(); \n" + TOARRAY + ": toArray(); \n" + ADD
+                + ": add(); \n" + REMOVE + ": remove() by value; \n" + ADDALL
+                + ": addAll(); \n" + CLEAR + ": clear(); \n" + SET
+                + ": set(); \n" + GET + ": get(); \n"
+                + ADDBYINDEX + ": add() by index; \n" + REMOVEBYINDEX
+                + ": remove() by index; \n" + INDEXOF + ": indexOf(); \n" + CREATE
+                + ": Erstelle Verkettete Liste; \n" + SHOW + ": List anzeigen; \n" + ENDE + ": beenden -> ");
+        return input.nextInt();
+    }
+
+    /**
+     * Hier wird abhängig vom benutzer die richtige artikel methode ausgeführt
+     * 
+     * @param funktion Befehl des benutzer
+     */
+    private void ausfuehrenFunktion(int funktion) {
+        if (funktion != CREATE && liste == null) {
+            System.out.println("Keine Liste vorhanden! Bitte erstellen sie ein Liste, geben sie 17 ein\n");
+            return;
+        }
+        switch (funktion) {
+            case CREATE:
+                createLinkedList();
+                break;
+            case SIZE:
+
+                printSize();
+                break;
+            case ISEMPTY:
+
+                printIsEmpty();
+                break;
+            case CONTAINS:
+
+                printContains();
+                break;
+            case TOARRAY:
+
+                printArray();
+                break;
+            case ADD:
+
+                add();
+                break;
+            case SHOW:
+                show();
+                break;
+            case REMOVE:
+                removeByValue();
+                break;
+            case ADDALL:
+                addAll();
+                break;
+            case CLEAR:
+                clear();
+                break;
+            case GET:
+                get();
+                break;
+            case SET:
+                set();
+                break;
+            case ADDBYINDEX:
+                addByIndex();
+                break;
+            case REMOVEBYINDEX:
+                removeByIndex();
+                break;
+            case INDEXOF:
+                indexOf();
+                break;
+            case ENDE:
+                System.out.println("Programmende");
+                break;
+            default:
+                System.out.println("Falsche Funktion!");
+                break;
+        }
+    }
+
+    /**
+     * Hauptschleife des Testprogramms
+     */
+    public void start() {
+        int funktion = -1;
+
+        while (funktion != ENDE) {
+            try {
+                funktion = einleseFunktion();
+                ausfuehrenFunktion(funktion);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e);
+            } catch (NullPointerException e) {
+                System.out.println("Liste exestiert nicht! Bitte erstellen sie diese zuerst.");
+            } catch (InputMismatchException e) {
+                System.out.println(e + " Falsche Eingabe!");
+                input.nextLine();
+            } catch (Exception e) {
+                System.out.println(e + " Programm beendet");
+                funktion = ENDE;
+            }
+        }
+    }
 
     /**
      * Main methode
@@ -179,13 +379,6 @@ public class Dialog {
      * @param args
      */
     public static void main(String[] args) {
-        // new Dialog().start();
-
-        List<Integer> dll = new DoppelVerketteteListe<>();
-        dll.add(1);
-        dll.add(4);
-        dll.add(5);
-
-        System.out.println(dll.indexOf(9));
+        new Dialog().start();
     }
 }
