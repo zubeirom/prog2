@@ -181,24 +181,41 @@ public class DoppelVerketteteListe<E> implements List<E> {
     public E set(int index, E element) {
         int counter = 0;
         Node<E> temp = head;
-        while (temp.getNext() != null) {
-            if (counter == index) {
+        Iterator<E> it = iterator();
+
+        while(it.hasNext()) {
+            if(counter == index) {
                 E prev = temp.getData();
                 temp.setData(element);
                 return prev;
             }
+            counter++;
             temp = temp.getNext();
+            it.next();
         }
+
         return null;
     }
 
     @Override
     public void add(int index, E element) {
+        if(index >= size() || index < 0) {
+            throw new IllegalArgumentException("Index not available");
+        }
+        if(index == 0) {
+            pushFront(element);
+            return;
+        }
+        if(index == size()-1) {
+            add(element);
+            return;
+        }
+        
         int counter = 0;
         Node<E> temp = head;
         Node<E> newNode = new Node<E>(element);
-
-        while(temp.getNext() != null) {
+        Iterator<E> it = iterator();
+        while(it.hasNext()) {
             if(counter == index) {
                 newNode.setNext(temp);
                 newNode.setPrev(temp.getPrev());
@@ -206,7 +223,9 @@ public class DoppelVerketteteListe<E> implements List<E> {
                 temp.setPrev(newNode);
                 return;
             }
+            counter++;
             temp = temp.getNext();
+            it.hasNext();
         }
     }
 
@@ -273,6 +292,20 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
         return null;
     }
+
+    
+    public void pushFront(E element) {
+        Node<E> newNode = new Node<E>(element);
+        
+        newNode.setNext(head);
+        newNode.setPrev(null);
+
+        if (head != null)
+        head.setPrev(newNode);
+
+        head = newNode;
+    }
+    
 
     @Override
     public String toString() {

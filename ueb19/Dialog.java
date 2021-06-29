@@ -20,7 +20,11 @@ public class Dialog {
         dll.add(3);
         dll.add(4);
 
+        System.out.println(dll);
 
-        System.out.println(dll.get(4));
+        dll.add(4, 45);
+
+        System.out.println(dll);
+
     }
 }
