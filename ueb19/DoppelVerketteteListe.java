@@ -262,18 +262,23 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
     private Node<E> getByObject(Object o) {
         Node<E> temp = head;
-        while (temp.getNext() != null) {
+        Iterator<E> it = iterator();
+        while (it.hasNext()) {
             if (temp.getData().equals(o)) {
                 return temp;
             }
             temp = temp.getNext();
+            it.next();
         }
+
         return null;
     }
 
     @Override
     public String toString() {
         String s = "null<-->";
+        if(isEmpty())
+        return s;
         Node<E> temp = head;
         while(temp.getNext() != null) {
             s += "[ " + temp.getData() + " ]" + "<---->";
