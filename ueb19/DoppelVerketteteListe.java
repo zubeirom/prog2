@@ -56,6 +56,9 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return false;
     }
 
+    /**
+     * Get iterator class
+     */
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -75,6 +78,9 @@ public class DoppelVerketteteListe<E> implements List<E> {
         };
     }
 
+    /**
+     * Convert linkedlist to array
+     */
     @Override
     public <T> T[] toArray(T[] a) {
         int counter = 0;
@@ -92,6 +98,11 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return a;
     }
 
+    /**
+     * Add to the end of list
+     * @param e element
+     * @return true
+     */
     @Override
     public boolean add(E e) {
         Node<E> newNode = new Node<E>(e);
@@ -113,6 +124,11 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return true;
     }
 
+    /**
+     * Remove by object 
+     * @param o object to check if exist
+     * @return true if exists and remove
+     */
     @Override
     public boolean remove(Object o) {
         if (head == null || o == null) {
@@ -140,6 +156,11 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return true;
     }
 
+    /**
+     * Append list to end of linkedlist
+     * @param c collection
+     * @return true
+     */
     @Override
     public boolean addAll(Collection<? extends E> c) {
         int oldSize = size();
@@ -152,11 +173,19 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return true;
     }
 
+    /**
+     * Clear linkedlist
+     */
     @Override
     public void clear() {
         head = null;
     }
 
+    /**
+     * get by index
+     * @return data of  node
+     * @param index 
+     */
     @Override
     public E get(int index) {
         if (index < 0)
@@ -178,6 +207,12 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return null;
     }
 
+    /**
+     * Set by index
+     * @param index
+     * @param element data we will replace with
+     * @return data of replaced node
+     */
     @Override
     public E set(int index, E element) {
         int counter = 0;
@@ -198,6 +233,11 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return null;
     }
 
+    /**
+     * Add at index
+     * @param index
+     * @param element data we want to add
+     */
     @Override
     public void add(int index, E element) {
         if(index >= size() || index < 0) {
@@ -230,6 +270,11 @@ public class DoppelVerketteteListe<E> implements List<E> {
         }
     }
 
+    /**
+     * Remove at index
+     * @param index 
+     * @return data of removed node
+     */
     @Override
     public E remove(int index) {
         if(index >= size() || index < 0) {
@@ -265,6 +310,11 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return null;
     }
 
+    /**
+     * Get index of object
+     * @param o object to look for in linkedlist
+     * @return index or -1 if not exists
+     */
     @Override
     public int indexOf(Object o) {
         int counter = 0;
@@ -281,6 +331,9 @@ public class DoppelVerketteteListe<E> implements List<E> {
         return -1;
     }
 
+    /**
+     * Get Listiterator
+     */
     @Override
     public ListIterator<E> listIterator(int index) {
         return new ListIterator<E>(){

@@ -1,3 +1,6 @@
+/**
+ * Node to use in linkedlist
+ */
 public class Node<T> {
     
     private T data;
@@ -14,26 +17,48 @@ public class Node<T> {
         this.next = next;
     }
 
+    /**
+     * Get data of node
+     */
     public T getData() {
         return data;
     }
 
+    /**
+     * Set data of node
+     * @param data of node 
+     */
     public void setData(T data) {
         this.data = data;
     }
 
+    /**
+     * get next node
+     */
     public Node<T> getNext() {
         return next;
     }
 
+    /**
+     * set next node
+     * @param next node
+     */
     public void setNext(Node<T> next) {
         this.next = next;
     }
 
+    /**
+     * get Prev node 
+     * @return prev node
+     */
     public Node<T> getPrev() {
         return prev;
     }
 
+    /**
+     * Set prev node
+     * @param prev node
+     */
     public void setPrev(Node<T> prev) {
         this.prev = prev;
     }
