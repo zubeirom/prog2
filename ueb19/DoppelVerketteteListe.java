@@ -3,6 +3,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+
 /**
  * Doppel verkettete liste
  */
@@ -268,14 +269,16 @@ public class DoppelVerketteteListe<E> implements List<E> {
     public int indexOf(Object o) {
         int counter = 0;
         Node<E> temp = head;
-        while (temp.getNext() != null) {
-            if (temp.getData() == o) {
+        Iterator<E> it = iterator();
+        while (it.hasNext()) {
+            if (temp.getData().equals(o)) {
                 return counter;
             }
             counter++;
             temp = temp.getNext();
+            it.next();
         }
-        return 0;
+        return -1;
     }
 
     @Override
