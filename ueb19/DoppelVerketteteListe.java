@@ -47,7 +47,7 @@ public class DoppelVerketteteListe<E> implements List<E> {
     public boolean contains(Object o) {
         Node<E> temp = head;
         while (temp != null) {
-            if (temp.equals(o)) {
+            if (temp.getData().equals(o)){
                 return true;
             }
             temp = temp.getNext();
@@ -76,8 +76,23 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
     @Override
     public <T> T[] toArray(T[] a) {
-        // TODO Auto-generated method stub
-        return null;
+        int counter = 0;
+        if(head == null) {
+            return a;
+        }
+        if(head.getNext() == null) {
+            a[0] = (T) head.getData();
+            return a;
+        }
+        a[0] = (T) head.getData();
+        Node<E> temp = head;
+        while(temp.getNext() != null) {
+            counter++;
+            temp = temp.getNext();
+            a[counter] = (T) temp.getData();
+        }
+
+        return a;
     }
 
     @Override
@@ -197,13 +212,33 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        // TODO Auto-generated method stub
+        int counter = 0;
+        Node<E> temp = head;
+        while(temp.getNext() != null) {
+            if(counter == index) {
+                temp.getPrev().setNext(temp.getNext());
+                temp.getNext().setPrev(temp.getPrev());
+                temp.setPrev(null);
+                temp.setNext(null);
+                return temp.getData();
+            }
+            counter++;
+            temp = temp.getNext();
+        }
         return null;
     }
 
     @Override
     public int indexOf(Object o) {
-        // TODO Auto-generated method stub
+        int counter = 0;
+        Node<E> temp = head;
+        while (temp.getNext() != null) {
+            if (temp.getData() == o) {
+                return counter;
+            }
+            counter++;
+            temp = temp.getNext();
+        }
         return 0;
     }
 
@@ -228,7 +263,7 @@ public class DoppelVerketteteListe<E> implements List<E> {
     private Node<E> getByObject(Object o) {
         Node<E> temp = head;
         while (temp.getNext() != null) {
-            if (temp.getData() == o) {
+            if (temp.getData().equals(o)) {
                 return temp;
             }
             temp = temp.getNext();
@@ -239,16 +274,12 @@ public class DoppelVerketteteListe<E> implements List<E> {
     @Override
     public String toString() {
         String s = "null<-->";
-        if(head.getNext() == null) {
-            s += "[ " + head.getData() + " ]" + "<---->null";
-            return s;
-        }
-
         Node<E> temp = head;
         while(temp.getNext() != null) {
-            s += temp.getData() + "<---->";
+            s += "[ " + temp.getData() + " ]" + "<---->";
+            temp = temp.getNext();
         }
-        s += "<---->null";
+        s += "[ " + temp.getData() + " ]" + "<---->null";
         return s;
     }
 
@@ -291,4 +322,8 @@ public class DoppelVerketteteListe<E> implements List<E> {
     public Object[] toArray() {
         throw new UnsupportedOperationException();
     }
+
+	public long[] toArray(int[] a) {
+		return null;
+	}
 }

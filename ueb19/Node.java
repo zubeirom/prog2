@@ -1,41 +1,45 @@
-public class Node<E> {
+public class Node<T> {
     
-    private E data;
-    private Node<E> next;
-    private Node<E> prev;
+    private T data;
+    private Node<T> next;
+    private Node<T> prev;
 
-    public Node(E data) {
+    public Node(T data) {
         this.data = data;
     }
 
-    public Node(E data, Node<E> prev, Node<E> next) {
+    public Node(T data, Node<T> prev, Node<T> next) {
         this.data = data;
         this.prev = prev;
         this.next = next;
     }
 
-    public E getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(E data) {
+    public void setData(T data) {
         this.data = data;
     }
 
-    public Node<E> getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public void setNext(Node<E> next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 
-    public Node<E> getPrev() {
+    public Node<T> getPrev() {
         return prev;
     }
 
-    public void setPrev(Node<E> prev) {
+    public void setPrev(Node<T> prev) {
         this.prev = prev;
     }
     
+    @Override
+    public String toString() {
+        return "Data: " + getData().toString();
+    }
 }
