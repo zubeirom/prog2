@@ -17,11 +17,6 @@ public class Dialog {
         dll.add(456);
         dll.add(10);
 
-        System.out.println(dll);
-
-        System.out.println(dll.remove(1));
-
-        System.out.println(dll);
 
     }
 }

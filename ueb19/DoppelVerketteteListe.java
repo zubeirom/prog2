@@ -280,8 +280,64 @@ public class DoppelVerketteteListe<E> implements List<E> {
 
     @Override
     public ListIterator<E> listIterator(int index) {
-        // TODO Auto-generated method stub
-        return null;
+        return new ListIterator<E>(){
+
+            Node<E> node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public E next() {
+                E data = node.getData();
+                node = node.getNext();
+                return data;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return node.getPrev() != null;
+            }
+
+            @Override
+            public E previous() {
+                E data = node.getData();
+                node = node.getPrev();
+                return data;
+            }
+
+            @Override
+            public int nextIndex() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            public int previousIndex() {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+
+            @Override
+            public void remove() {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void set(E e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void add(E e) {
+                // TODO Auto-generated method stub
+                
+            }
+        };
     }
 
     private boolean exists(Object o) {
