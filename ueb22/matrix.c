@@ -1,15 +1,19 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int Y = 3;
+// Declare 2d array to nothing
+int twoDim;
+int rowSize;
+int colSize = 3;
 
 // Function that takes a 2d array and prints it out.
-void print_matrix(int matrix[][Y], int rowSize)
+void print_matrix(int matrix[][colSize], int rowSize)
 {
     int i, j;
     for (i = 0; i < rowSize; i++)
     {
         printf("|");
-        for (j = 0; j < Y; j++)
+        for (j = 0; j < colSize; j++)
         {
             printf(" %d ", matrix[i][j]);
         }
@@ -18,8 +22,8 @@ void print_matrix(int matrix[][Y], int rowSize)
     }
 }
 
-int find_max_in_col(int matrix[][Y], int colIndex, int rowSize) {
-    if(colIndex >= Y) {
+int find_max_in_col(int matrix[][colSize], int colIndex, int rowSize) {
+    if(colIndex >= colSize) {
         return -1;
     }
     int max = matrix[0][colIndex];
@@ -35,11 +39,11 @@ int find_max_in_col(int matrix[][Y], int colIndex, int rowSize) {
     return max;
 }
 
-int find_max_in_row(int matrix[][Y], int rowIndex)
+int find_max_in_row(int matrix[][colSize], int rowIndex)
 {
     int max = 0;
     int j;
-    for (j = 0; j < Y; j++)
+    for (j = 0; j < colSize; j++)
     {
         if (matrix[rowIndex][j] > max)
         {
@@ -49,14 +53,15 @@ int find_max_in_row(int matrix[][Y], int rowIndex)
     return max;
 }
 
+
+// Dialog to create matrix
+
 int main()
 {
-    int twoDimArr[2][5] = { { 1, 56, 2, 5, 9 }, { 7, 4, 9, 5, 3 } };
-    int rowSize = sizeof twoDimArr / sizeof twoDimArr[0];
-    int colSize = sizeof twoDimArr[0] / sizeof twoDimArr[0][0];
+    create_matrix();
+    // Print the matrix
+    print_matrix(twoDim, rowSize);
 
-    Y = colSize;
-    print_matrix(twoDimArr, rowSize);
-    int max = find_max_in_col(twoDimArr, 2, rowSize);
-    printf("%d", max);
+    // int max = find_max_in_col(twoDim, 2, rowSize);
+    // printf("%d", max);
 }
