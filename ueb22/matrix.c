@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-#define X 2
-#define Y 3
+int Y = 3;
 
 // Function that takes a 2d array and prints it out.
 void print_matrix(int matrix[][Y], int rowSize)
@@ -19,13 +18,13 @@ void print_matrix(int matrix[][Y], int rowSize)
     }
 }
 
-int find_max_in_col(int matrix[][Y], int colIndex) {
+int find_max_in_col(int matrix[][Y], int colIndex, int rowSize) {
     if(colIndex >= Y) {
         return -1;
     }
     int max = matrix[0][colIndex];
     int i;
-    for (i = 1; i < X; i++)
+    for (i = 1; i < rowSize; i++)
     {
         if (matrix[i][colIndex] > max)
         {
@@ -52,10 +51,12 @@ int find_max_in_row(int matrix[][Y], int rowIndex)
 
 int main()
 {
-    int twoDimArr[2][3] = { { 1, 56, 2 }, { 7, 4, 9 } };
+    int twoDimArr[2][5] = { { 1, 56, 2, 5, 9 }, { 7, 4, 9, 5, 3 } };
     int rowSize = sizeof twoDimArr / sizeof twoDimArr[0];
+    int colSize = sizeof twoDimArr[0] / sizeof twoDimArr[0][0];
 
+    Y = colSize;
     print_matrix(twoDimArr, rowSize);
-    int max = find_max_in_col(twoDimArr, 3);
+    int max = find_max_in_col(twoDimArr, 2, rowSize);
     printf("%d", max);
 }
