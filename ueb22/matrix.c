@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 // Declare 2d array to nothing
-int twoDim;
 int rowSize;
 int colSize = 3;
+int **twoDim;
 
 // Function that takes a 2d array and prints it out.
 void print_matrix(int matrix[][colSize], int rowSize)
@@ -17,11 +17,11 @@ void print_matrix(int matrix[][colSize], int rowSize)
         {
             printf(" %d ", matrix[i][j]);
         }
-        printf("|");
         printf("\n");
     }
 }
-
+ 
+// Function that finds max in column
 int find_max_in_col(int matrix[][colSize], int colIndex, int rowSize) {
     if(colIndex >= colSize) {
         return -1;
@@ -39,6 +39,7 @@ int find_max_in_col(int matrix[][colSize], int colIndex, int rowSize) {
     return max;
 }
 
+// Function that finds max in row
 int find_max_in_row(int matrix[][colSize], int rowIndex)
 {
     int max = 0;
@@ -53,47 +54,35 @@ int find_max_in_row(int matrix[][colSize], int rowIndex)
     return max;
 }
 
-// Dialog to create matrix
+// Function that ask user to create a 2d array and return it.
 void create_matrix() {
-    // Get row size
-    printf("Enter the size of the row");
+    printf("How many rows? ");
     scanf("%d", &rowSize);
-    if(rowSize < 0) {
-        printf("Row size must be greater than 0");
-        return;
-    }
-
-    // Get column size
-    printf("Enter the size of the column");
+    printf("How many columns? ");
     scanf("%d", &colSize);
-    if(colSize < 0) {
-        printf("Column size must be greater than 0");
-        return;
-    }
 
-    // Set twoDim to the matrix
-    twoDim = (int *) malloc(rowSize * colSize * sizeof(int));
+    twoDim = (int **) malloc(rowSize * sizeof(int *));
 
-    // Ask user to enter values
+    // Ask user to input values into 2d array
     int i, j;
-    int u1, u2;
     for (i = 0; i < rowSize; i++)
     {
+        twoDim[i] = (int *) malloc(colSize * sizeof(int));
         for (j = 0; j < colSize; j++)
         {
             printf("Enter value at [%d][%d]: ", i, j);
-            scanf("&i &i", &u1, &u2);
-            twoDim[i][j] = u1 + u2;
+            scanf("%d", &twoDim[i][j]);
         }
     }
 }
 
 
-// Dialog to create matrix
+
 
 int main()
 {
     create_matrix();
+
     // Print the matrix
     print_matrix(twoDim, rowSize);
 
