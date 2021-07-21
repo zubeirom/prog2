@@ -18,6 +18,7 @@ void print_matrix(int matrix[][Y], int rowSize)
     }
 }
 
+// Function that finds max in column.
 int find_max_in_col(int matrix[][Y], int colIndex, int rowSize) {
     if(colIndex >= Y) {
         return -1;
@@ -35,6 +36,7 @@ int find_max_in_col(int matrix[][Y], int colIndex, int rowSize) {
     return max;
 }
 
+// Function that finds max in row.
 int find_max_in_row(int matrix[][Y], int rowIndex)
 {
     int max = 0;
