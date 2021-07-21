@@ -53,6 +53,41 @@ int find_max_in_row(int matrix[][colSize], int rowIndex)
     return max;
 }
 
+// Dialog to create matrix
+void create_matrix() {
+    // Get row size
+    printf("Enter the size of the row");
+    scanf("%d", &rowSize);
+    if(rowSize < 0) {
+        printf("Row size must be greater than 0");
+        return;
+    }
+
+    // Get column size
+    printf("Enter the size of the column");
+    scanf("%d", &colSize);
+    if(colSize < 0) {
+        printf("Column size must be greater than 0");
+        return;
+    }
+
+    // Set twoDim to the matrix
+    twoDim = (int *) malloc(rowSize * colSize * sizeof(int));
+
+    // Ask user to enter values
+    int i, j;
+    int u1, u2;
+    for (i = 0; i < rowSize; i++)
+    {
+        for (j = 0; j < colSize; j++)
+        {
+            printf("Enter value at [%d][%d]: ", i, j);
+            scanf("&i &i", &u1, &u2);
+            twoDim[i][j] = u1 + u2;
+        }
+    }
+}
+
 
 // Dialog to create matrix
 
