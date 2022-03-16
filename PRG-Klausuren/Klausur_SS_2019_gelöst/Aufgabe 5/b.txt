@@ -1,0 +1,2 @@
+i, arr[0], arr[1], arr[2], s.i 	// Variablen
+0, 1      , 0       , 1       , 0	// Werte bei Ausgabe

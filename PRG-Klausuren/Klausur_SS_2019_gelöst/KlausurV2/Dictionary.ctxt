@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Dictionary
+comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ Dictionary.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
+comment1.params=
+comment1.target=Dictionary()
+comment2.params=eintrag\ value
+comment2.target=void\ insert(java.lang.Object,\ java.lang.Object)
+comment3.params=kList\ vList
+comment3.target=boolean\ insertAll(java.util.List,\ java.util.List)
+comment4.params=eintrag
+comment4.target=java.lang.Object\ getTranslation(java.lang.Object)
+comment5.params=
+comment5.target=void\ printAll()
+comment6.params=p
+comment6.target=void\ removeIf(java.util.function.Predicate)
+comment7.params=
+comment7.target=java.lang.String\ toString()
+numComments=8

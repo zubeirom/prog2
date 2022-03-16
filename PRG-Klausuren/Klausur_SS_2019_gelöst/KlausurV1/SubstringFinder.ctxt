@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=SubstringFinder
+comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ FindRA.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
+comment1.params=haystack\ needle
+comment1.target=boolean\ findRecursive(java.lang.String,\ java.lang.String)
+comment2.params=haystack\ needle
+comment2.target=boolean\ findIterative(java.lang.String,\ java.lang.String)
+comment3.params=args
+comment3.target=void\ main(java.lang.String[])
+numComments=4

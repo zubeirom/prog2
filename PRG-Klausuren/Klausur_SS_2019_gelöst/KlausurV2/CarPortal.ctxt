@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=CarPortal
+comment1.params=
+comment1.target=CarPortal()
+comment2.params=id\ car
+comment2.target=void\ add(java.lang.Integer,\ Car)
+comment3.params=id
+comment3.target=void\ remove(java.lang.Integer)
+comment4.params=c
+comment4.target=java.util.List\ getCarsSorted(java.util.Comparator)
+comment5.params=c\ p
+comment5.target=java.util.List\ getCarsFilteredAndSorted(java.util.Comparator,\ java.util.function.Predicate)
+comment6.params=p
+comment6.target=java.util.Map\ getCarsFilteredAndGrouped(java.util.function.Predicate)
+comment7.params=p
+comment7.target=long\ countCars(java.util.function.Predicate)
+numComments=8
